@@ -53,17 +53,20 @@ module.exports = {
         ],
     },
     devServer: {
+        //使得ip可以访问webpack
+        host:'0.0.0.0',
+        
         compress:true,
         port:2000,
         open:true,
-        proxy:{
-            '*':{
-                target:'http://172.20.0.141',
-                secure:false,
-                bypass:(req)=>{
+        // proxy:{
+        //     '*':{
+        //         target:'http://172.20.0.141',
+        //         secure:false,
+        //         bypass:(req)=>{
  
-                }
-            }
-        }
+        //         }
+        //     }
+        // }
     },
 }

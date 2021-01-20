@@ -1,8 +1,10 @@
 <template>
-    <div>sdfsdfsf</div>
+    <login />
 </template>
 <script>
+import login from './login.vue'
 export default {
-    name:'app'
+    name:'app',
+    components:{login}
 }
 </script> 
