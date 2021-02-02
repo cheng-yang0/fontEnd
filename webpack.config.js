@@ -51,6 +51,10 @@ module.exports = {
         modules:[
             resolve('./node_modules/'),
         ],
+        alias: {
+            'vue$': 'vue/dist/vue.esm.js',
+            '@': resolve('src')
+        }
     },
     devServer: {
         //使得ip可以访问webpack
@@ -58,15 +62,15 @@ module.exports = {
         
         compress:true,
         port:2000,
-        open:true,
-        // proxy:{
-        //     '*':{
-        //         target:'http://172.20.0.141',
-        //         secure:false,
-        //         bypass:(req)=>{
+        open:false,
+        proxy:{
+            '*':{
+                target:'http://localhost:3000',
+                secure:false,
+                bypass:(req)=>{
  
-        //         }
-        //     }
-        // }
+                }
+            }
+        }
     },
 }
