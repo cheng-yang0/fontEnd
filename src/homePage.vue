@@ -49,6 +49,7 @@
             if("WebSocket" in window){
                 console.log("您的浏览器支持WebSocket");
                 axios.get('/socket').then(res=>{
+                    console.log(res.data.port);
                     this.wsObj = new WebSocket(`ws://${location.hostname}:${res.data.port}`);
                     this.wsObj.onmessage = (ev)=>{  //获取后端响应
                         this.acceptData=ev.data
