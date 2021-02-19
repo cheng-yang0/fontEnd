@@ -50,7 +50,7 @@
                 console.log("您的浏览器支持WebSocket");
                 axios.get('/socket').then(res=>{
                     console.log(res.data.port);
-                    this.wsObj = new WebSocket(`http://${location.hostname}:${res.data.port}`);
+                    this.wsObj = new WebSocket(`ws://8.131.57.124:${res.data.port}`);
                     this.wsObj.onmessage = (ev)=>{  //获取后端响应
                         this.acceptData=ev.data
                     };

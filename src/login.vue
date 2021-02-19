@@ -56,7 +56,7 @@
         },
         methods:{
             loginFn(){
-                axios.post('/user/login',{
+                axios.post('/backEnd/user/login',{
                     userName:this.userName,
                     password:this.password
                 }).then(res=>{
@@ -74,7 +74,7 @@
                 })
             },
             registerFn(){
-                axios.post('/user/register',{
+                axios.post('/backEnd/user/register',{
                     userName:this.userName,
                     password:this.password
                 }).then(res=>{
