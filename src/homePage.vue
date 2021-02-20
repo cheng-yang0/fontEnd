@@ -71,7 +71,7 @@
                     this.wsObj.onmessage = (ev)=>{  //获取后端响应
                         const data=JSON.parse(ev.data)
                         if(data.text!==undefined){
-                            this.messages.push(data)
+                            this.messages.unshift(data)
                         }
                         if(data.onlineNumber!==undefined){
                             this.onlineNumber=data.onlineNumber
