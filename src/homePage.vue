@@ -20,6 +20,7 @@
                         width:'300px',
                         marginRight:'30px',
                     }"
+                    @pressEnter='sendFn'
                 />
             </div>
             <a-button @click="sendFn">
@@ -37,7 +38,7 @@
                 >
                 <a-list-item slot="renderItem" slot-scope="item, index">
                     <span style="color:red">{{index}}</span>
-                    {{item.date}}: {{item.text}}
+                    {{item.date}} {{item.port}}端口说： {{item.text}}
                 </a-list-item>
             </a-list>
         </div>
@@ -85,6 +86,7 @@
         methods:{
             sendFn(){
                 this.wsObj.send(this.variable)
+                this.variable=''
             }
         }
     }
