@@ -2,13 +2,15 @@
     <div :style="{
         ...columnStyle,
         //backgroundColor:'green',
-        height:'50%',
+        //height:'100%',
         width:'100%',
         
     }">
-        <div>已连接服务器的{{port}}端口,在线人数{{onlineNumber}}</div>
+        <div style="margin-top:10px;">已连接服务器的{{port}}端口,在线人数{{onlineNumber}}</div>
         <div :style="{
             display:'flex',
+            marginTop:'10px',
+            marginBottom:'10px',
         }">
             <div>
                 想对大家说些什么：
@@ -24,15 +26,20 @@
                 发送
             </a-button>
         </div>
-       
         <div>
-            最新消息：
-            <a-input  
-                v-model="acceptData" 
+            消息列表：
+            <a-list 
+                :bordered="true"
+                :data-source="messages"
                 :style="{
-                    width:'300px',
+                    width:'530px'
                 }"
-            />
+                >
+                <a-list-item slot="renderItem" slot-scope="item, index">
+                    <span style="color:red">{{index}}</span>
+                    {{item.date}}: {{item.text}}
+                </a-list-item>
+            </a-list>
         </div>
     </div>
 </template>
@@ -52,6 +59,7 @@
                 },
                 port:'',
                 onlineNumber:0,
+                messages:[],
             }
         },
         created(){
@@ -62,8 +70,7 @@
                     this.wsObj = new WebSocket(`ws://${location.hostname}:${res.data.port}`);
                     this.wsObj.onmessage = (ev)=>{  //获取后端响应
                         const data=JSON.parse(ev.data)
-                        console.log(data);
-                        
+                        this.messages.push(data)
                         this.acceptData=data.text
                         this.onlineNumber=data.onlineNumber
                     };
