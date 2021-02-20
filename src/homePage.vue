@@ -42,7 +42,7 @@
                 }"
                 >
                 <a-list-item slot="renderItem" slot-scope="item, index">
-                    <span style="color:red">{{index}}</span>
+                    <span style="color:red">{{messages.length-index}}</span>
                     {{item.date}} {{item.port}}端口说： {{item.text}}
                 </a-list-item>
             </a-list>
