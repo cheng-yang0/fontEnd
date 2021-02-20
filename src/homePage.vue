@@ -6,20 +6,27 @@
         width:'100%',
         
     }">
-        <div>
-            这是一个全局变量：
-            <a-input  
-                v-model="variable" 
-                :style="{
-                    width:'300px',
-                }"
-            />
+        <div>已连接服务器的{{port}}端口,在线人数{{onlineNumber}}</div>
+        <div :style="{
+            display:'flex',
+        }">
+            <div>
+                想对大家说些什么：
+                <a-input  
+                    v-model="variable" 
+                    :style="{
+                        width:'300px',
+                        marginRight:'30px',
+                    }"
+                />
+            </div>
+            <a-button @click="sendFn">
+                发送
+            </a-button>
         </div>
-        <a-button @click="sendFn">
-            发送
-        </a-button>
+       
         <div>
-            接受：
+            最新消息：
             <a-input  
                 v-model="acceptData" 
                 :style="{
@@ -43,26 +50,27 @@
                     justifyContent:'space-around',
                     alignItems:'center',
                 },
+                port:'',
+                onlineNumber:0,
             }
         },
         created(){
             if("WebSocket" in window){
                 console.log("您的浏览器支持WebSocket");
                 axios.get('/socket').then(res=>{
-                    console.log(res.data.port);
-                    this.wsObj = new WebSocket(`ws://8.131.57.124:${res.data.port}`);
+                    this.port=res.data.port
+                    this.wsObj = new WebSocket(`ws://${location.hostname}:${res.data.port}`);
                     this.wsObj.onmessage = (ev)=>{  //获取后端响应
-                        this.acceptData=ev.data
+                        const data=JSON.parse(ev.data)
+                        console.log(data);
+                        
+                        this.acceptData=data.text
+                        this.onlineNumber=data.onlineNumber
                     };
+                    this.wsObj.onclose=()=>{
+                        location.reload()
+                    }
                 })
-                // wsObj.onopen = ()=>{  //发送请求
-                //     wsObj.send("Hello WebSocket");
-                // };
-                // wsObj.onclose = (ev)=>{
-                // };
-                // wsObj.onerror = (ev)=>{
-                //     alert('xixi')
-                // };
         　　}else{  
         　　　　console.log("您的浏览器不支持WebSocket");
         　　}
