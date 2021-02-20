@@ -6,7 +6,12 @@
         width:'100%',
         
     }">
-        <div style="margin-top:10px;">已连接服务器的{{port}}端口,在线人数{{onlineNumber}}</div>
+        <div style="margin-top:10px;">
+            网站开发者：杨成 ，电话号码：15510082705 ，欢迎短信给予开发建议，谢谢！
+        </div>
+        <div style="margin-top:10px;">
+            已连接服务器的{{port}}端口,在线人数{{onlineNumber}} (刷新网页可更换端口身份)
+        </div>
         <div :style="{
             display:'flex',
             marginTop:'10px',
