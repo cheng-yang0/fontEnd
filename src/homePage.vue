@@ -50,7 +50,6 @@
         data(){
             return {
                 variable:'',
-                acceptData:'',
                 columnStyle:{
                     display:'flex',
                     flexDirection:'column',
@@ -70,8 +69,9 @@
                     this.wsObj = new WebSocket(`ws://${location.hostname}:${res.data.port}`);
                     this.wsObj.onmessage = (ev)=>{  //获取后端响应
                         const data=JSON.parse(ev.data)
-                        this.messages.push(data)
-                        this.acceptData=data.text
+                        if(data.text!==undefined){
+                            this.messages.push(data)
+                        }
                         this.onlineNumber=data.onlineNumber
                     };
                     this.wsObj.onclose=()=>{
