@@ -73,10 +73,14 @@
                         if(data.text!==undefined){
                             this.messages.push(data)
                         }
-                        this.onlineNumber=data.onlineNumber
+                        if(data.onlineNumber!==undefined){
+                            this.onlineNumber=data.onlineNumber
+                        }
                     };
                     this.wsObj.onclose=()=>{
-                        location.reload()
+                        setTimeout(()=>{
+                            location.reload()
+                        },2000)
                     }
                 })
         　　}else{  
