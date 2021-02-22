@@ -31,9 +31,8 @@
             </div>
             <a-upload 
                 :customRequest="customRequest"
-                @change="uploadChange"
             >
-                发送文件
+                <a-button> <a-icon type="upload" /> 发送文件 </a-button>
             </a-upload>
         </div>
         <div>
@@ -55,7 +54,7 @@
                     />
                     <div>
                         <video :id="index+item.text"
-                            :src="item.text" style="max-width:400px"
+                            :src="item.text"
                             controls="controls"
                             v-if="isVideo(item.text)"    
                         />
