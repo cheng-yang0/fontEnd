@@ -41,7 +41,7 @@
                 :bordered="true"
                 :data-source="messages"
                 :style="{
-                    width:'530px'
+                    width:'730px'
                 }"
                 >
                 <a-list-item slot="renderItem" slot-scope="item, index">
@@ -49,16 +49,15 @@
                     {{item.date}} {{item.port}}端口说： 
                     <span v-if="!isImg(item.text)&&!isVideo(item.text)">{{item.text}}</span>
                     <img 
-                        :src="item.text" style="max-width:400px"
+                        :src="item.text" style="max-width:94%;display:block"
                         v-if="isImg(item.text)"    
                     />
-                    <div>
-                        <video :id="index+item.text"
-                            :src="item.text"
-                            controls="controls"
-                            v-if="isVideo(item.text)"    
-                        />
-                    </div>
+                    <video :id="index+item.text"
+                        :src="item.text"
+                        controls="controls"
+                        v-if="isVideo(item.text)"  
+                        style="display: block;max-width: 100%;"  
+                    />
                     
                 </a-list-item>
             </a-list>
