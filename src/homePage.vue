@@ -52,13 +52,15 @@
                         :src="item.text" style="max-width:94%;display:block"
                         v-if="isImg(item.text)"    
                     />
-                    <video :id="index+item.text"
-                        :src="item.text"
-                        controls="controls"
-                        v-if="isVideo(item.text)"  
-                        style="display: block;max-width: 100%;"  
-                    />
-                    
+                    <div style="max-width: 100%;">
+                        <video :id="index+item.text"
+                            :src="item.text"
+                            controls="controls"
+                            v-if="isVideo(item.text)"  
+                        >
+                            <source :src="item.text">
+                        </video>
+                    </div>    
                 </a-list-item>
             </a-list>
         </div>
