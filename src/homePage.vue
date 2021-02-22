@@ -21,6 +21,7 @@
                 想对大家说些什么：
                 <a-input  
                     v-model="variable" 
+                    placeholder="回车发送"
                     :style="{
                         width:'300px',
                         marginRight:'30px',
@@ -28,9 +29,12 @@
                     @pressEnter='sendFn'
                 />
             </div>
-            <a-button @click="sendFn">
-                发送
-            </a-button>
+            <a-upload 
+                :customRequest="customRequest"
+                @change="uploadChange"
+            >
+                发送文件
+            </a-upload>
         </div>
         <div>
             消息列表：
@@ -43,7 +47,20 @@
                 >
                 <a-list-item slot="renderItem" slot-scope="item, index">
                     <span style="color:red">{{messages.length-index}}</span>
-                    {{item.date}} {{item.port}}端口说： {{item.text}}
+                    {{item.date}} {{item.port}}端口说： 
+                    <span v-if="!isImg(item.text)&&!isVideo(item.text)">{{item.text}}</span>
+                    <img 
+                        :src="item.text" style="max-width:400px"
+                        v-if="isImg(item.text)"    
+                    />
+                    <div>
+                        <video :id="index+item.text"
+                            :src="item.text" style="max-width:400px"
+                            controls="controls"
+                            v-if="isVideo(item.text)"    
+                        />
+                    </div>
+                    
                 </a-list-item>
             </a-list>
         </div>
@@ -102,7 +119,26 @@
                     this.wsObj.send(this.variable)
                     this.variable=''    
                 }
+            },
+            customRequest(file){
+                const formData=new FormData()
+                formData.append('file',file.file)
+                formData.append('port',this.port)
+                axios.post('/media',formData).then(res=>{
+                    this.wsObj.send(res.data.data)
+                })
+            },
+            isImg(text){
+                return /http/.test(text) && /jpg|jpeg|png|bmp|tif|gif/.test(text)
+            },
+            isVideo(text){
+                return /http/.test(text) && /avi|mov|rmvb|rm|flv|mp4|3gp/.test(text)
             }
+            // beforeUpload(file){
+            //     console.log(file);
+            //     this.wsObj.send(file)
+            //     return false
+            // },
         }
     }
 </script>
